@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.example.mydailyapp.weather_Fragment
-import com.example.mydailyapp.accountBook_Fragment
-import com.example.mydailyapp.TodoList_Fragment
+import com.example.mydailyapp.bottom_menu.accountBook_Fragment
+import com.example.mydailyapp.bottom_menu.TodoList_Fragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,4 +45,6 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.frag_container_nav, fragment)
         transaction.commit()
     }
+
+
 }
