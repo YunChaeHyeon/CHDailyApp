@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/home"
+        android:id="@+id/nav_weather"
         android:icon="@drawable/weather_image"
         android:title="Weather"
         app:cnb_iconColor="@color/weather"/>
     <item
-        android:id="@+id/search"
+        android:id="@+id/nav_accountBook"
         android:icon="@drawable/housed_image"
         android:title="Account Book"
         app:cnb_iconColor="@color/housed"/>
     <item
-        android:id="@+id/favorites"
+        android:id="@+id/nav_todoList"
         android:icon="@drawable/todolist_image"
         android:title="TodoList"
         app:cnb_iconColor="@color/todolist" />
