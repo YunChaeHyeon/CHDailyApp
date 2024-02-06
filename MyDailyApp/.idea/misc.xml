@@ -3,16 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1155" />
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/drawable/ic_delete.xml" value="0.1155" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/accountbook_fargment.xml" value="0.17617753623188406" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/accountbook_fragment.xml" value="0.15729483282674772" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/activity_main.xml" value="0.17617753623188406" />
-        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/bottom_menu.xml" value="0.17617753623188406" />
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/add_task_dialog.xml" value="0.2479892761394102" />
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/bottom_menu.xml" value="0.22" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/fragment_account.xml" value="0.17617753623188406" />
-        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/fragment_todo_list.xml" value="0.17617753623188406" />
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/fragment_todo_list.xml" value="0.2" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/fragment_weather.xml" value="0.25" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/test.xml" value="0.22" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/todolist_fragment.xml" value="0.17617753623188406" />
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/update_task_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/view_task_layout.xml" value="0.22" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/layout/weather_fragment.xml" value="0.17617753623188406" />
+        <entry key="..\:/Users/cogus/AndroidStudioProjects/GitHub/CHDailyApp/MyDailyApp/app/src/main/res/menu/bottom_menu.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/MyDailyApp/app/src/main/res/drawable/weather_image.xml" value="0.1305" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/MyDailyApp/app/src/main/res/layout/accountbook_fargment.xml" value="0.16302083333333334" />
         <entry key="..\:/Users/cogus/AndroidStudioProjects/MyDailyApp/app/src/main/res/layout/activity_main.xml" value="0.1778115501519757" />
