@@ -3,8 +3,6 @@ package com.example.mydailyapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
-import com.example.mydailyapp.weather_Fragment
-import com.example.mydailyapp.bottom_menu.TodoList_Fragment
 
 
 class MainActivity : AppCompatActivity() {

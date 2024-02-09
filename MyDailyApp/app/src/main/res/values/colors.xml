@@ -14,4 +14,5 @@
     <color name="todolist">#E6A919</color>
 
     <color name="todoListBackground">#ffde92</color>
+    <color name="trans80_black">#51000000</color>
 </resources>

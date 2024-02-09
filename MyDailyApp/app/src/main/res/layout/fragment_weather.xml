@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding ="25dp"
     android:background = "@drawable/bg_night"
-    tools:context=".weather_Fragment">
+    tools:context=".`weather_Fragment.kt`">
 
 
     <RelativeLayout

@@ -5,19 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/todoListBackground"
-    tools:context=".TodoList_Fragment">
+    tools:context=".TodoListFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/fragmentText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment"
-            android:textSize="30sp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,22 +44,23 @@
             tools:listitem="@layout/view_task_layout"/>
     </LinearLayout>
 
-        <!-- Task 추가 버튼 -->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/black"
-            android:text="Add Task"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            app:icon="@drawable/add_circle"
-            app:iconSize="25dp"
-            app:iconTint="@color/white"
-            />
-
+    <!-- Task 추가 버튼 -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addTaskFABtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="90dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="@color/black"
+        android:text="Add Task"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:icon="@drawable/add_circle"
+        app:iconSize="25dp"
+        app:iconTint="@color/white"
+        />
 
 
 
