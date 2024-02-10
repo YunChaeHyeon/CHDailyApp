@@ -16,7 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class TaskRepository(application: Application) {
 
@@ -60,6 +60,16 @@ class TaskRepository(application: Application) {
 //        }
 //    }
 
+    fun getTaskList() = flow {
+        emit(Loading())
+        try {
+            val result = taskDao.getTaskList()
+            emit(Success(result))
+        }catch (e: Exception){
+            emit(Error(e.message.toString()))
+        }
+
+    }
 
     fun insertTask(task: Task) = MutableLiveData<Resource<Long>>().apply {
         postValue(Loading())

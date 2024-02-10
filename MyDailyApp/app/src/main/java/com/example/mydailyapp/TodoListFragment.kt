@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import com.example.mydailyapp.adapters.TaskRecycleViewAdapter
 import com.example.mydailyapp.databinding.FragmentTodolistBinding
 import com.example.mydailyapp.models.Task
 import com.example.mydailyapp.utils.*
@@ -20,6 +20,10 @@ import com.example.mydailyapp.utils.*
 import com.example.mydailyapp.viewmodels.TaskViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 import java.util.*
 
@@ -54,10 +58,15 @@ class TodoList_Fragment : Fragment(){
         ViewModelProvider(this)[TaskViewModel::class.java]
     }
 
+    private val taskRecycleViewAdapter : TaskRecycleViewAdapter by lazy {
+        TaskRecycleViewAdapter()
+    }
     //===========================================
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mBinding.taskRV.adapter = taskRecycleViewAdapter
 
         val addCloseImg = addTaskDialog.findViewById<ImageView>(R.id.closeImg)
         addCloseImg.setOnClickListener {addTaskDialog.dismiss()}
@@ -128,7 +137,7 @@ class TodoList_Fragment : Fragment(){
 
 //        val updateCloseImg = updateTaskDialog.findViewById<ImageView>(R.id.closeImg)
 //        updateCloseImg.setOnClickListener {updateTaskDialog.dismiss()}
-
+        callGetTaskList()
     }
 
 
@@ -142,6 +151,31 @@ class TodoList_Fragment : Fragment(){
         mBinding = FragmentTodolistBinding.inflate(inflater, container, false)
 
         return mBinding.root
+
+    }
+
+    private fun callGetTaskList() {
+        loadingDialog.show()
+        CoroutineScope(Dispatchers.Main).launch {
+            taskViewModel.getTaskList().collect(){
+                when(it.status){
+                    Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+                    Status.SUCCESS -> {
+                        it.data?.collect { taskList ->
+                            loadingDialog.dismiss()
+                            taskRecycleViewAdapter.addAllTask(taskList)
+                        }
+
+
+                    }
+                    Status.ERROR -> {
+                        loadingDialog.dismiss()
+                    }
+                }
+            }
+        }
 
     }
 

@@ -18,6 +18,9 @@ interface TaskDao {
 //        CASE WHEN :isAsc = 0 THEN date END DESC""")
 //    fun getTaskListSortByTaskDate(isAsc: Boolean) : Flow<List<Task>>
 
+    @Query("SELECT * FROM Task ORDER BY date DESC")
+    fun getTaskList() : Flow<List<Task>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: Task): Long
 
