@@ -25,14 +25,14 @@ interface TaskDao {
     suspend fun insertTask(task: Task): Long
 
 
-//    // First way
-//    @Delete
-//    suspend fun deleteTask(task: Task) : Int
-//
-//
-//    // Second Way
-//    @Query("DELETE FROM Task WHERE taskId == :taskId")
-//    suspend fun deleteTaskUsingId(taskId: String) : Int
+    // First way
+    @Delete
+    suspend fun deleteTask(task: Task) : Int
+
+
+    // Second Way
+    @Query("DELETE FROM Task WHERE taskId == :taskId")
+    suspend fun deleteTaskUsingId(taskId: String) : Int
 //
 //
 //    @Update

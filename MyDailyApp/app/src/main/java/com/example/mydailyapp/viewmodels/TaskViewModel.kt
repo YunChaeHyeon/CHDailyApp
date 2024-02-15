@@ -18,6 +18,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return taskRepository.insertTask(task)
     }
 
+    fun deleteTask(task: Task): MutableLiveData<Resource<Int>>{
+        return taskRepository.deleteTask(task)
+    }
+
+    fun deleteTaskUsingId(taskId: String): MutableLiveData<Resource<Int>>{
+        return taskRepository.deleteTaskUsingId(taskId)
+    }
+
 //    val taskStateFlow get() =  taskRepository.taskStateFlow
 //    val statusLiveData get() =  taskRepository.statusLiveData
 //    val sortByLiveData get() =  taskRepository.sortByLiveData

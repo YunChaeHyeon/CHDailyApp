@@ -3,6 +3,7 @@ package com.example.mydailyapp.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mydailyapp.R
@@ -10,7 +11,9 @@ import com.example.mydailyapp.models.Task
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TaskRecycleViewAdapter : RecyclerView.Adapter<TaskRecycleViewAdapter.ViewHolder>()
+class TaskRecycleViewAdapter(
+    private val deleteCallback : (position: Int, task: Task) -> Unit
+) : RecyclerView.Adapter<TaskRecycleViewAdapter.ViewHolder>()
 {
 
     private val taskList = arrayListOf<Task>()
@@ -19,6 +22,8 @@ class TaskRecycleViewAdapter : RecyclerView.Adapter<TaskRecycleViewAdapter.ViewH
         val titleTxt : TextView = itemView.findViewById(R.id.titleTxt)
         val descrTxt : TextView = itemView.findViewById(R.id.descrTxt)
         val dateTxt : TextView = itemView.findViewById(R.id.dateTxt)
+
+        val deleteImg : ImageView = itemView.findViewById(R.id.deleteImg)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -45,6 +50,13 @@ class TaskRecycleViewAdapter : RecyclerView.Adapter<TaskRecycleViewAdapter.ViewH
         holder.descrTxt.text = task.description
         val dateFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm:ss a", Locale.getDefault())
         holder.dateTxt.text = dateFormat.format(task.date)
+
+        holder.deleteImg.setOnClickListener {
+            if(holder.adapterPosition != -1){
+                deleteCallback( holder.adapterPosition , task)
+            }
+
+        }
     }
 
     override fun getItemCount(): Int {
