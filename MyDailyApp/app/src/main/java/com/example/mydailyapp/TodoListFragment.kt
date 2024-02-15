@@ -7,11 +7,15 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mydailyapp.adapters.TaskRVVBListAdapter
+import com.example.mydailyapp.adapters.TaskRVViewBindingAdapter
 import com.example.mydailyapp.adapters.TaskRecycleViewAdapter
 import com.example.mydailyapp.databinding.FragmentTodolistBinding
 import com.example.mydailyapp.models.Task
@@ -169,7 +173,7 @@ class TodoList_Fragment : Fragment(){
         val updateCloseImg = updateTaskDialog.findViewById<ImageView>(R.id.closeImg)
         updateCloseImg.setOnClickListener {updateTaskDialog.dismiss()}
 
-        val taskRecycleViewAdapter =  TaskRecycleViewAdapter { type , position, task ->
+        val taskRVVBListAdapter =  TaskRVVBListAdapter { type, position, task ->
             if(type == "delete"){
                 taskViewModel
                     .deleteTaskUsingId(task.id)
@@ -238,9 +242,17 @@ class TodoList_Fragment : Fragment(){
 
         }
 
-        mBinding.taskRV.adapter = taskRecycleViewAdapter
+        mBinding.taskRV.adapter = taskRVVBListAdapter
+        taskRVVBListAdapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver()
+        {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                mBinding.taskRV.smoothScrollToPosition(positionStart)
+            }
+        })
+        callGetTaskList(taskRVVBListAdapter)
 
-        callGetTaskList(taskRecycleViewAdapter)
+       // callSearch()
     }
 
 
@@ -257,7 +269,33 @@ class TodoList_Fragment : Fragment(){
 
     }
 
-    private fun callGetTaskList(taskRecycleViewAdapter : TaskRecycleViewAdapter) {
+//    private fun callSearch() {
+//        mBinding.edSearch.addTextChangedListener(object : TextWatcher{
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//            override fun afterTextChanged(query: Editable) {
+//                if (query.toString().isNotEmpty()){
+//                    taskViewModel.searchTaskList(query.toString())
+//                }else{
+//                    taskViewModel.getTaskList()
+//                }
+//            }
+//        })
+//
+//        mBinding.edSearch.setOnEditorActionListener{ v, actionId, event ->
+//            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+//                //hideKeyBoard(v)
+//                return@setOnEditorActionListener true
+//            }
+//            false
+//        }
+//
+//        //callSortByDialog()
+//    }
+
+    private fun callGetTaskList(taskRecycleViewAdapter : TaskRVVBListAdapter) {
         loadingDialog.show()
         CoroutineScope(Dispatchers.Main).launch {
             taskViewModel.getTaskList().collect(){
@@ -268,7 +306,7 @@ class TodoList_Fragment : Fragment(){
                     Status.SUCCESS -> {
                         it.data?.collect { taskList ->
                             loadingDialog.dismiss()
-                            taskRecycleViewAdapter.addAllTask(taskList)
+                            taskRecycleViewAdapter.submitList(taskList)
                         }
 
 
