@@ -35,12 +35,12 @@ interface TaskDao {
     suspend fun deleteTaskUsingId(taskId: String) : Int
 //
 //
-//    @Update
-//    suspend fun updateTask(task: Task): Int
-//
-//
-//    @Query("UPDATE Task SET taskTitle=:title, description = :description WHERE taskId = :taskId")
-//    suspend fun updateTaskPaticularField(taskId:String,title:String,description:String): Int
+    @Update
+    suspend fun updateTask(task: Task): Int
+
+
+    @Query("UPDATE Task SET taskTitle=:title, description = :description WHERE taskId = :taskId")
+    suspend fun updateTaskPaticularField(taskId:String,title:String,description:String): Int
 
 
 //    @Query("SELECT * FROM Task WHERE taskTitle LIKE :query ORDER BY date DESC")

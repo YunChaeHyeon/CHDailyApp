@@ -58,36 +58,36 @@ class TodoList_Fragment : Fragment(){
         ViewModelProvider(this)[TaskViewModel::class.java]
     }
 
-    private val taskRecycleViewAdapter : TaskRecycleViewAdapter by lazy {
-        TaskRecycleViewAdapter { position, task ->
-            taskViewModel
-                .deleteTaskUsingId(task.id)
-               // .deleteTask(task)
-                .observe(this) {
-                    when(it.status){
-                        Status.LOADING -> {
-                            loadingDialog.show()
-                        }
-                        Status.SUCCESS -> {
-                            loadingDialog.dismiss()
-                            if(it.data != -1){
-                                longToastShow("Task Deleted Successfully" , requireContext())
-                            }
-                        }
-                        Status.ERROR -> {
-                            loadingDialog.dismiss()
-                            //it.message?.let { it1 -> longToastShow(it1)}
-                        }
-                    }
-                }
-        }
-    }
+//    private val taskRecycleViewAdapter : TaskRecycleViewAdapter by lazy {
+//        TaskRecycleViewAdapter { position, task ->
+//            taskViewModel
+//                .deleteTaskUsingId(task.id)
+//               // .deleteTask(task)
+//                .observe(this) {
+//                    when(it.status){
+//                        Status.LOADING -> {
+//                            loadingDialog.show()
+//                        }
+//                        Status.SUCCESS -> {
+//                            loadingDialog.dismiss()
+//                            if(it.data != -1){
+//                                longToastShow("Task Deleted Successfully" , requireContext())
+//                            }
+//                        }
+//                        Status.ERROR -> {
+//                            loadingDialog.dismiss()
+//                            //it.message?.let { it1 -> longToastShow(it1)}
+//                        }
+//                    }
+//                }
+//        }
+//    }
     //===========================================
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.taskRV.adapter = taskRecycleViewAdapter
+        //mBinding.taskRV.adapter = taskRecycleViewAdapter
 
         val addCloseImg = addTaskDialog.findViewById<ImageView>(R.id.closeImg)
         addCloseImg.setOnClickListener {addTaskDialog.dismiss()}
@@ -156,9 +156,91 @@ class TodoList_Fragment : Fragment(){
         }
         // == Add task end ==
 
-//        val updateCloseImg = updateTaskDialog.findViewById<ImageView>(R.id.closeImg)
-//        updateCloseImg.setOnClickListener {updateTaskDialog.dismiss()}
-        callGetTaskList()
+
+        //==============
+        val updateETTitle = updateTaskDialog.findViewById<TextInputEditText>(R.id.edTaskTitle)
+        val updateETTitleL = updateTaskDialog.findViewById<TextInputLayout>(R.id.edTaskTitleL)
+
+        val updateETDesc = updateTaskDialog.findViewById<TextInputEditText>(R.id.edTaskDesc)
+        val updateETDescL = updateTaskDialog.findViewById<TextInputLayout>(R.id.edTaskDescL)
+
+        val updateTaskBtn = updateTaskDialog.findViewById<Button>(R.id.updateTaskBtn)
+
+        val updateCloseImg = updateTaskDialog.findViewById<ImageView>(R.id.closeImg)
+        updateCloseImg.setOnClickListener {updateTaskDialog.dismiss()}
+
+        val taskRecycleViewAdapter =  TaskRecycleViewAdapter { type , position, task ->
+            if(type == "delete"){
+                taskViewModel
+                    .deleteTaskUsingId(task.id)
+                    // .deleteTask(task)
+                    .observe(viewLifecycleOwner) {
+                        when(it.status){
+                            Status.LOADING -> {
+                                loadingDialog.show()
+                            }
+                            Status.SUCCESS -> {
+                                loadingDialog.dismiss()
+                                if(it.data != -1){
+                                    longToastShow("Task Deleted Successfully" , requireContext())
+                                }
+                            }
+                            Status.ERROR -> {
+                                loadingDialog.dismiss()
+                                //it.message?.let { it1 -> longToastShow(it1)}
+                            }
+                        }
+                    }
+            }else if(type == "update"){
+                updateETTitle.setText(task.title)
+                updateETDesc.setText(task.description)
+                updateTaskBtn.setOnClickListener {
+                    if (validateEditText(updateETTitle, updateETTitleL)
+                        && validateEditText(updateETDesc, updateETDescL)
+                    ) {
+                        val updateTask = Task(
+                            task.id,
+                            updateETTitle.text.toString().trim(),
+                            updateETDesc.text.toString().trim(),
+//                           here i Date updated
+                            Date()
+                        )
+                        updateTaskDialog.dismiss()
+                        loadingDialog.show()
+                        taskViewModel
+                            .updateTaskPaticularField( // 날짜 update X
+                                task.id,
+                                updateETTitle.text.toString().trim(),
+                                updateETDesc.text.toString().trim(),
+                            )
+                            //.updateTask(updateTask) // 날짜 update O
+                            .observe(viewLifecycleOwner) {
+                                when(it.status){
+                                    Status.LOADING -> {
+                                        loadingDialog.show()
+                                    }
+                                    Status.SUCCESS -> {
+                                        loadingDialog.dismiss()
+                                        if(it.data != -1){
+                                            longToastShow("Task Update Successfully" , requireContext())
+                                        }
+                                    }
+                                    Status.ERROR -> {
+                                        loadingDialog.dismiss()
+                                        //it.message?.let { it1 -> longToastShow(it1)}
+                                    }
+                                }
+                            }
+                    }
+                }
+                updateTaskDialog.show()
+            }
+
+        }
+
+        mBinding.taskRV.adapter = taskRecycleViewAdapter
+
+        callGetTaskList(taskRecycleViewAdapter)
     }
 
 
@@ -175,7 +257,7 @@ class TodoList_Fragment : Fragment(){
 
     }
 
-    private fun callGetTaskList() {
+    private fun callGetTaskList(taskRecycleViewAdapter : TaskRecycleViewAdapter) {
         loadingDialog.show()
         CoroutineScope(Dispatchers.Main).launch {
             taskViewModel.getTaskList().collect(){

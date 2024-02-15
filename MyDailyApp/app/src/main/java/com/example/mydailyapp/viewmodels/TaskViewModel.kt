@@ -26,6 +26,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return taskRepository.deleteTaskUsingId(taskId)
     }
 
+    fun updateTask(task: Task): MutableLiveData<Resource<Int>> {
+        return taskRepository.updateTask(task)
+    }
+
+    fun updateTaskPaticularField(taskId: String,title:String,description:String): MutableLiveData<Resource<Int>> {
+        return taskRepository.updateTaskPaticularField(taskId, title, description)
+    }
+
 //    val taskStateFlow get() =  taskRepository.taskStateFlow
 //    val statusLiveData get() =  taskRepository.statusLiveData
 //    val sortByLiveData get() =  taskRepository.sortByLiveData
