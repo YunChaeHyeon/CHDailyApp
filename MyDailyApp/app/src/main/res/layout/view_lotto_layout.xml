@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="10dp"
+    app:strokeColor="@color/gray"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="false"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/randomL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+<!--                <TextView-->
+<!--                    android:id="@+id/listLotto1"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:text="listLotto1"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginVertical="4dp"-->
+<!--                    android:textSize="18sp"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/listLotto2"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:text="listLotto2"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginVertical="4dp"-->
+<!--                    android:textSize="18sp"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/listLotto3"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:text="listLotto2"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginVertical="4dp"-->
+<!--                    android:textSize="18sp"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/listLotto4"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:text="listLotto2"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginVertical="4dp"-->
+<!--                    android:textSize="18sp"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/listLotto5"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:text="listLotto2"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginVertical="4dp"-->
+<!--                    android:textSize="18sp"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/listLotto6"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:text="listLotto2"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginVertical="4dp"-->
+<!--                    android:textSize="18sp"/>-->
+
+
+
+                <ImageView
+                    android:id="@+id/listLotto1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ball_00" />
+
+                <ImageView
+                    android:id="@+id/listLotto2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ball_00" />
+
+                <ImageView
+                    android:id="@+id/listLotto3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ball_00" />
+
+                <ImageView
+                    android:id="@+id/listLotto4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ball_00" />
+
+                <ImageView
+                    android:id="@+id/listLotto5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ball_00" />
+
+                <ImageView
+                    android:id="@+id/listLotto6"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ball_00" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dateTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textColor="@color/black"
+                android:layout_marginVertical="4dp"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editDeleteL"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/deleteImg"
+                android:layout_marginVertical="4dp"
+                android:src="@drawable/ic_delete"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

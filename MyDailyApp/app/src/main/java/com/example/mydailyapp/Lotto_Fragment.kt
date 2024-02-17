@@ -1,23 +1,28 @@
 package com.example.mydailyapp
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.example.mydailyapp.Lotto.LottoService
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mydailyapp.databinding.FragmentLottoBinding
-import com.example.mydailyapp.databinding.FragmentTodolistBinding
-import com.example.mydailyapp.models.LottoResponse
-import com.example.mydailyapp.models.fetchLatestLottoNumbers
+import com.example.mydailyapp.adapters.LottoRVVBListAdapter
+import com.example.mydailyapp.adapters.TaskRVVBListAdapter
+import com.example.mydailyapp.models.Lotto
+import com.example.mydailyapp.models.Task
+import com.example.mydailyapp.utils.Status
+import com.example.mydailyapp.utils.StatusResult
+import com.example.mydailyapp.utils.setupDialog
+import com.example.mydailyapp.utils.validateEditText
+import com.example.mydailyapp.viewmodels.LottoViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collectLatest
 import org.jsoup.Jsoup
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +33,17 @@ import kotlin.random.Random
 class Lotto_Fragment : Fragment() {
     private lateinit var mBinding: FragmentLottoBinding
 
-    private val job = Job()
+    private val job2 = Job()
+
+    private val lottoViewModel : LottoViewModel by lazy {
+        ViewModelProvider(this)[LottoViewModel::class.java]
+    }
+
+    private val loadingDialog : Dialog by lazy {
+        Dialog(requireContext()).apply {
+            setupDialog(R.layout.loading_dialog)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,24 +60,97 @@ class Lotto_Fragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var lottoNumbers = createLottoNumbers()
         super.onViewCreated(view, savedInstanceState)
+        mBinding.generatebutton.setOnClickListener{
+            lottoNumbers = createLottoNumbers()
+            updateLottoBallImage(lottoNumbers)
+        }
 
-        val lottoNumbers = createLottoNumbers()
+        CoroutineScope(Dispatchers.IO + job2).launch {
+            updateThisWeekLottoBallImage(crawlLottoNumbers())
+        }
 
-        CoroutineScope(Dispatchers.IO + job).launch {
-            val winningNumbers = async { crawlLottoNumbers() }
-            val rank = whatIsRank(lottoNumbers, winningNumbers.await())
-            val text = "${winningNumbers.await()} : $rank"
+        mBinding.listAddButton.setOnClickListener {
 
-            withContext(Dispatchers.Main) {
-                mBinding.lottoNumbersTextView.text = "이번 주 로또 당첨 번호  "+text
+            val newlotto = Lotto(
+                UUID.randomUUID().toString(),
+                lottoNumbers[0],
+                lottoNumbers[1],
+                lottoNumbers[2],
+                lottoNumbers[3],
+                lottoNumbers[4],
+                lottoNumbers[5],
+                Date()
+            )
+            //hideKeyBoard(it)
+            lottoViewModel.insertTask(newlotto)
+
+        }
+
+        LottoRVVBListAdapter.setContext(requireContext());
+
+        val lottoRVVBListAdapter =  LottoRVVBListAdapter { type, position, lotto ->
+            if(type == "delete"){
+                lottoViewModel
+                    .deleteLottoUsingId(lotto.id)
+                // .deleteTask(task)
+
             }
+        }
+
+        mBinding.lottoRV.adapter = lottoRVVBListAdapter
+        lottoRVVBListAdapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver()
+        {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                mBinding.lottoRV.smoothScrollToPosition(positionStart)
+            }
+        })
+
+        callGetLottoList(lottoRVVBListAdapter)
+        lottoViewModel.getTaskList()
+        statusCallback()
+
+    }
+
+    fun getDrawableID(number: Int): Int {
+        val number = String.format("%02d", number)
+        val string = "ball_$number"
+        val id = resources.getIdentifier(string, "drawable", requireActivity().packageName)
+        return id
+    }
+
+    private fun updateLottoBallImage(result: ArrayList<Int>) {
+        with(mBinding) {
+            ivGame0.setImageResource(getDrawableID(result[0]))
+            ivGame1.setImageResource(getDrawableID(result[1]))
+            ivGame2.setImageResource(getDrawableID(result[2]))
+            ivGame3.setImageResource(getDrawableID(result[3]))
+            ivGame4.setImageResource(getDrawableID(result[4]))
+            ivGame5.setImageResource(getDrawableID(result[5]))
+            //tvAnalyze.text = "번호합: ${result[6]}  홀:짝=${result[7]}:${result[8]}"
         }
     }
 
-    private suspend fun crawlLottoNumbers() : ArrayList<Int> {
+    private fun updateThisWeekLottoBallImage(result: ArrayList<Int>) {
+        with(mBinding) {
+            Resultnum1.setImageResource(getDrawableID(result[0]))
+            Resultnum2.setImageResource(getDrawableID(result[1]))
+            Resultnum3.setImageResource(getDrawableID(result[2]))
+            Resultnum4.setImageResource(getDrawableID(result[3]))
+            Resultnum5.setImageResource(getDrawableID(result[4]))
+            Resultnum6.setImageResource(getDrawableID(result[5]))
+            Resultnum7.setImageResource(getDrawableID(result[6]))
+            //tvAnalyze.text = "번호합: ${result[6]}  홀:짝=${result[7]}:${result[8]}"
+        }
+    }
+
+
+
+    private suspend fun crawlLottoNumbers(): ArrayList<Int> {
         val lottoNumbers = ArrayList<Int>()
-        // var doc: Document? = null
+
         try {
             val doc = Jsoup.connect("https://dhlottery.co.kr/common.do?method=main").get()
             for (i in 1..6) {
@@ -75,12 +163,11 @@ class Lotto_Fragment : Fragment() {
             val lottoDrwNo = doc.select("#lottoDrwNo").text().toInt()
             lottoNumbers.add(lottoDrwNo)
 
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return lottoNumbers
     }
-
     private fun whatIsRank(lottoNumbers: ArrayList<Int>, winningNumbers: ArrayList<Int>): String {
         var matchCount = 0
         for (i in 0..5) {
@@ -136,5 +223,64 @@ class Lotto_Fragment : Fragment() {
         return result
     }
 
+
+    private fun statusCallback() {
+        lottoViewModel
+            .statusLiveData
+            .observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        when (it.data as StatusResult) {
+                            StatusResult.Added -> {
+                                Log.d("StatusResult", "Added")
+                            }
+
+                            StatusResult.Deleted -> {
+                                Log.d("StatusResult", "Deleted")
+
+                            }
+
+                            StatusResult.Updated -> {
+                                Log.d("StatusResult", "Updated")
+
+                            }
+                        }
+                        //it.message?.let { it1 -> longToastShow(it1) }
+                    }
+
+                    Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        //it.message?.let { it1 -> longToastShow(it1) }
+                    }
+                }
+            }
+    }
+
+    private fun callGetLottoList(lottoRecycleViewAdapter : LottoRVVBListAdapter) {
+        CoroutineScope(Dispatchers.Main).launch {
+            lottoViewModel.lottoStateFlow.collectLatest{
+                when(it.status){
+                    Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+                    Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.collect { lottoList ->
+                            lottoRecycleViewAdapter.submitList(lottoList)
+                        }
+                    }
+                    Status.ERROR -> {
+                        loadingDialog.dismiss()
+                    }
+                }
+            }
+        }
+
+    }
 
 }

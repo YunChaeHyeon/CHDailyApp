@@ -1,17 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Lotto_Fragment">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-    <TextView
-        android:id="@+id/lottoNumbersTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로또 번호를 여기에 표시합니다."
-        android:layout_centerInParent="true"/>
+                <TextView
+                    android:id="@+id/MainTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="이번 주 로또 당첨 번호"
+                    android:textColor="@color/black"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
-</FrameLayout>
+                <LinearLayout
+                    android:id="@+id/resultL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/Resultnum1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/Resultnum2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/Resultnum3"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/Resultnum4"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/Resultnum5"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/Resultnum6"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/add" />
+
+                        <ImageView
+                            android:id="@+id/Resultnum7"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="80dp"
+                    android:layout_gravity="center"
+                    android:text="로또번호생성기"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintBottom_toTopOf="@+id/linearlayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/randomL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iv_game0"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/iv_game1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/iv_game2"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/iv_game3"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/iv_game4"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                        <ImageView
+                            android:id="@+id/iv_game5"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ball_00" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/generatebutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="로또번호 생성"
+                    android:layout_below="@+id/randomL" />
+
+                <Button
+                    android:id="@+id/listAddButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="번호 리스트에 추가"
+                    android:layout_below="@+id/generatebutton" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lottoRV"
+                    android:layout_marginTop = "8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingBottom="100dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/view_lotto_layout"/>
+
+        </LinearLayout>
+
+
+</LinearLayout>

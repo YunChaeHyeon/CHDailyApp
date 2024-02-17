@@ -29,6 +29,13 @@ fun Context.hideKeyBoard(view : View){
     }
 }
 
+fun getDrawableID(number: Int, context: Context): Int {
+    val number = String.format("%02d", number)
+    val string = "ball_$number"
+    val id = context?.resources?.getIdentifier(string, "drawable", context!!.packageName)
+    return id!!
+}
+
 fun longToastShow(msg:String ,context: Context){
     Toast.makeText(context,msg,Toast.LENGTH_LONG).show()
 }
