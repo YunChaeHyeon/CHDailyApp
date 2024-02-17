@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_weather -> {
                     openMainFragment()
                 }
-                R.id.nav_accountBook -> {
-                    val accountBookFragment = accountBook_Fragment()
+                R.id.nav_lotto -> {
+                    val lottoFragment = Lotto_Fragment()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.frag_container_nav, accountBookFragment).commit()
+                        .replace(R.id.frag_container_nav, lottoFragment).commit()
                 }
                 R.id.nav_todoList -> {
                     val todoListFragment = TodoList_Fragment()

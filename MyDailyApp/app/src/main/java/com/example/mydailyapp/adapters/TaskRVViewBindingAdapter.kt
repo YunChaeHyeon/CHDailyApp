@@ -1,12 +1,8 @@
 package com.example.mydailyapp.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mydailyapp.R
 import com.example.mydailyapp.databinding.ViewTaskLayoutBinding
 import com.example.mydailyapp.models.Task
 import java.text.SimpleDateFormat

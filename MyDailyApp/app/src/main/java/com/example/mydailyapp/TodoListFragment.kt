@@ -66,32 +66,6 @@ class TodoList_Fragment : Fragment(){
         ViewModelProvider(this)[TaskViewModel::class.java]
     }
 
-//    private val taskRecycleViewAdapter : TaskRecycleViewAdapter by lazy {
-//        TaskRecycleViewAdapter { position, task ->
-//            taskViewModel
-//                .deleteTaskUsingId(task.id)
-//               // .deleteTask(task)
-//                .observe(this) {
-//                    when(it.status){
-//                        Status.LOADING -> {
-//                            loadingDialog.show()
-//                        }
-//                        Status.SUCCESS -> {
-//                            loadingDialog.dismiss()
-//                            if(it.data != -1){
-//                                longToastShow("Task Deleted Successfully" , requireContext())
-//                            }
-//                        }
-//                        Status.ERROR -> {
-//                            loadingDialog.dismiss()
-//                            //it.message?.let { it1 -> longToastShow(it1)}
-//                        }
-//                    }
-//                }
-//        }
-//    }
-    //===========================================
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

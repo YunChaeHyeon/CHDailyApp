@@ -9,9 +9,9 @@
         android:title="Weather"
         app:cnb_iconColor="@color/weather"/>
     <item
-        android:id="@+id/nav_accountBook"
+        android:id="@+id/nav_lotto"
         android:icon="@drawable/housed_image"
-        android:title="Account Book"
+        android:title="Lotto"
         app:cnb_iconColor="@color/housed"/>
     <item
         android:id="@+id/nav_todoList"
