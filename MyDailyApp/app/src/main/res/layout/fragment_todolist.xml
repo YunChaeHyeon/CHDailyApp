@@ -24,6 +24,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/todayTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -33,8 +34,34 @@
             android:textStyle="bold">
         </TextView>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edSearchL"
+            style="@style/SearchInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/todayTxt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="false"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="20dp"
+                android:hint="Enter search title"
+                android:imeOptions="actionSearch"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/taskRV"
+            android:layout_marginTop = "8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

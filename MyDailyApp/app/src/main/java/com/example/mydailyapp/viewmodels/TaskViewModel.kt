@@ -12,62 +12,35 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     private val taskRepository = TaskRepository(application)
 
-    fun getTaskList() = taskRepository.getTaskList()
+    val taskStateFlow get() =  taskRepository.taskStateFlow
+    val statusLiveData get() =  taskRepository.statusLiveData
+    //val sortByLiveData get() =  taskRepository.sortByLiveData
 
-    fun insertTask(task: Task) : MutableLiveData<Resource<Long>>{
+    fun getTaskList() {
+        taskRepository.getTaskList()
+    }
+
+    fun insertTask(task: Task) {
         return taskRepository.insertTask(task)
     }
 
-    fun deleteTask(task: Task): MutableLiveData<Resource<Int>>{
+    fun deleteTask(task: Task) {
         return taskRepository.deleteTask(task)
     }
 
-    fun deleteTaskUsingId(taskId: String): MutableLiveData<Resource<Int>>{
+    fun deleteTaskUsingId(taskId: String) {
         return taskRepository.deleteTaskUsingId(taskId)
     }
 
-    fun updateTask(task: Task): MutableLiveData<Resource<Int>> {
+    fun updateTask(task: Task)  {
         return taskRepository.updateTask(task)
     }
 
-    fun updateTaskPaticularField(taskId: String,title:String,description:String): MutableLiveData<Resource<Int>> {
+    fun updateTaskPaticularField(taskId: String,title:String,description:String) {
         return taskRepository.updateTaskPaticularField(taskId, title, description)
     }
 
-//    val taskStateFlow get() =  taskRepository.taskStateFlow
-//    val statusLiveData get() =  taskRepository.statusLiveData
-//    val sortByLiveData get() =  taskRepository.sortByLiveData
-
-//    fun setSortBy(sort:Pair<String,Boolean>){
-//        taskRepository.setSortBy(sort)
-//    }
-//
-//    fun getTaskList(isAsc : Boolean, sortByName:String) {
-//        taskRepository.getTaskList(isAsc, sortByName)
-//    }
-
-//    fun insertTask(task: Task){
-//        taskRepository.insertTask(task)
-//    }
-
-
-//
-//    fun deleteTask(task: Task) {
-//        taskRepository.deleteTask(task)
-//    }
-//
-//    fun deleteTaskUsingId(taskId: String){
-//        taskRepository.deleteTaskUsingId(taskId)
-//    }
-//
-//    fun updateTask(task: Task) {
-//        taskRepository.updateTask(task)
-//    }
-//
-//    fun updateTaskPaticularField(taskId: String,title:String,description:String) {
-//        taskRepository.updateTaskPaticularField(taskId, title, description)
-//    }
-//    fun searchTaskList(query: String){
-//        taskRepository.searchTaskList(query)
-//    }
+    fun searchTaskList(query: String){
+        taskRepository.searchTaskList(query)
+    }
 }
